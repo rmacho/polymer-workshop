@@ -1,0 +1,52 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="add-contact">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+    <paper-input id="contactName" label="[[_labelName]]"></paper-input>
+    <paper-button raised on-click="addContactName"><iron-icon icon="account-circle"></iron-icon>Add contact</paper-button>
+    <paper-button raised on-click="removeList"><iron-icon icon="delete-forever"></iron-icon>Clear contact list</paper-button>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AddContact extends Polymer.Element {
+      static get is() { return 'add-contact'; }
+      static get properties() {
+        return {
+          _labelName: {
+            type: String,
+            value: 'Add contact'
+          }
+        };
+      }
+
+      addContactName() {
+        let contactList = JSON.parse(localStorage.getItem('contactlist')) || [];
+        if(this.$.contactName.value) {
+          contactList.push(this.$.contactName.value)
+          localStorage.setItem('contactlist', JSON.stringify(contactList));
+          this.dispatchEvent(new CustomEvent('newContactAdded', {bubble: true, composed : true}));
+        }
+      }
+
+      removeList() {
+        localStorage.clear();
+      }
+    }
+
+    customElements.define(AddContact.is, AddContact);
+  </script>
+</dom-module>

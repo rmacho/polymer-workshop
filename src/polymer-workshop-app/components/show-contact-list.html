@@ -1,0 +1,47 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
+
+<dom-module id="show-contact-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      h2 {
+          margin: 20px 15px;
+      }
+    </style>
+    <template is="dom-if" if='[[list]]'>
+        <h2>List of contacts</h2>
+    </template>
+    <iron-list items="[[list]]" as="listItem">
+        <template>
+            <paper-item>
+                <paper-item-body two-line>
+                    <div>[[listItem]]</div>
+                    <div secondary>Add phone number</div>
+                </paper-item-body>
+            </paper-item>
+        </template>
+    </iron-list>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ShowContactList extends Polymer.Element {
+      static get is() { return 'show-contact-list'; }
+      static get properties() {
+        return {
+          list: Array
+        };
+      }
+    }
+
+    customElements.define(ShowContactList.is, ShowContactList);
+  </script>
+</dom-module>

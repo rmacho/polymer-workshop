@@ -1,0 +1,6 @@
+{
+  "name": "polymer-workshop",
+  "short_name": "polymer-workshop",
+  "start_url": "/",
+  "display": "standalone"
+}

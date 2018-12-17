@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="components/add-contact.html">
+<link rel="import" href="components/show-contact-list.html">
+
+<dom-module id="polymer-workshop-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      #content {
+        width: 400px;
+        margin: 0 auto;
+        padding: 10px;
+      }
+    </style>
+    
+    <div id="content">
+      <h2>Hello [[prop1]]!</h2>
+      <add-contact></add-contact>
+      <show-contact-list list="[[contactListItems]]"></show-contact-list>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class PolymerWorkshopApp extends Polymer.Element {
+      static get is() { 
+        return 'polymer-workshop-app'; 
+      }
+      
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'polymer-workshop-app'
+          },
+          contactListItems: Array
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.addEventListener('newContactAdded', this.updateContactList);
+      }
+
+      updateContactList() {
+        this.set('contactListItems', JSON.parse(localStorage.getItem('contactlist')) || [] );
+      }
+
+    }
+
+    customElements.define(PolymerWorkshopApp.is, PolymerWorkshopApp);
+  </script>
+</dom-module>

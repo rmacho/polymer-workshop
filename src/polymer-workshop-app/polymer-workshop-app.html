@@ -1,9 +1,13 @@
+<!-- Use link import to include your components -->
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="components/add-contact.html">
 <link rel="import" href="components/show-contact-list.html">
 
+<!-- This is the start of you component, 
+the dom-module id is the name of your component -->
 <dom-module id="polymer-workshop-app">
   <template>
+    <!-- CSS styling -->
     <style>
       :host {
         display: block;
@@ -17,6 +21,7 @@
     
     <div id="content">
       <h2>Hello [[prop1]]!</h2>
+      
       <add-contact></add-contact>
       <show-contact-list id="showContactList" list="[[contactListItems]]"></show-contact-list>
     </div>

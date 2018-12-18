@@ -45,10 +45,16 @@
       ready() {
         super.ready();
         this.addEventListener('newContactAdded', this.updateContactList);
+        this.addEventListener('clearList', this.clearContactList);
       }
 
       updateContactList() {
         this.set('contactListItems', JSON.parse(localStorage.getItem('contactlist')) || [] );
+      }
+
+      clearContactList() {
+        localStorage.removeItem('contactlist');
+        this.set('contactListItems', [] );
       }
 
     }

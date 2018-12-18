@@ -1,0 +1,42 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="contact-inputs">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+    <paper-input id="contactName" label="[[labelName]]" value="[[prefilledName]]"></paper-input>
+    <paper-input
+        id="contactPhone" 
+        label="[[labelPhone]]"
+        value="[[prefilledPhone]]"
+        auto-validate 
+        pattern="^[0-9]*$"
+        error-message="Numbers only!">
+    </paper-input>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ContactInputs extends Polymer.Element {
+      static get is() { return 'contact-inputs'; }
+      static get properties() {
+        return {
+          labelName: String,
+          labelPhone: String,
+          prefilledName: String,
+          prefilledPhone: String
+        };
+      }
+    }
+
+    customElements.define(ContactInputs.is, ContactInputs);
+  </script>
+</dom-module>

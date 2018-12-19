@@ -1,9 +1,4 @@
-<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
-<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
-<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<!-- add imports here -->
 
 <dom-module id="show-contact-list">
   <template>
@@ -11,23 +6,8 @@
       :host {
         display: block;
       }
-      h2 {
-          margin: 20px 15px;
-      }
     </style>
-    <template is="dom-if" if='[[list]]'>
-        <h2>List of contacts</h2>
-    </template>
-    <iron-list items="[[list]]" as="listItem">
-        <template>
-            <paper-item>
-                <paper-item-body two-line>
-                    <div>[[listItem.name]]</div>
-                    <div secondary><iron-icon icon="settings-phone"></iron-icon> [[listItem.phone]]</div>
-                </paper-item-body>
-            </paper-item>
-        </template>
-    </iron-list>
+    <!-- HTML code -->
   </template>
 
   <script>
@@ -39,7 +19,6 @@
       static get is() { return 'show-contact-list'; }
       static get properties() {
         return {
-          list: Array
         };
       }
     }

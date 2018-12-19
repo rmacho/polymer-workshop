@@ -46,15 +46,25 @@
 
       addContact() {
         let contactList = JSON.parse(localStorage.getItem('contactlist')) || [];
+        
         if(this.$.contactName.value && this.$.contactPhone.value) {
-          contactList.push({name: this.$.contactName.value, phone: this.$.contactPhone.value});
+          contactList.push({
+            name: this.$.contactName.value, 
+            phone: this.$.contactPhone.value
+          });
+
+          //Set contactlist in localstorage
           localStorage.setItem('contactlist', JSON.stringify(contactList));
+          
+          //Fire event when contact is added
           this.dispatchEvent(new CustomEvent('newContactAdded', {bubble: true, composed : true}));
         }
       }
 
       removeList() {
+        // Clear localstorage
         localStorage.clear();
+        //Fire clear event when localstorage is empty
         this.dispatchEvent(new CustomEvent('clearList', {bubble: true, composed : true}));
       }
     }

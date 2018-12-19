@@ -1,9 +1,18 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="components/add-contact.html">
-<link rel="import" href="components/show-contact-list.html">
+<!-- <link rel="import" href="components/show-contact-list.html"> -->
+<!-- imports needed for contract list -->
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 
+<!-- This is the start of you component, 
+the dom-module id is the name of your component -->
 <dom-module id="polymer-workshop-app">
   <template>
+    <!-- CSS styling -->
     <style>
       :host {
         display: block;
@@ -17,8 +26,28 @@
     
     <div id="content">
       <h2>Hello [[prop1]]!</h2>
+      <!-- 
+        custom component to add contact 
+        add-contact.html
+      -->
       <add-contact></add-contact>
-      <show-contact-list list="[[contactListItems]]"></show-contact-list>
+
+      <!-- Code for showing the contact list -->
+      <!-- **** START CODE **** -->
+      <template is="dom-if" if='[[contactListItems]]'>
+          <h2>List of contacts</h2>
+      </template>
+      <iron-list items="[[contactListItems]]" as="listItem">
+          <template>
+              <paper-item>
+                  <paper-item-body two-line>
+                      <div>[[listItem.name]]</div>
+                      <div secondary><iron-icon icon="settings-phone"></iron-icon> [[listItem.phone]]</div>
+                  </paper-item-body>
+              </paper-item>
+          </template>
+      </iron-list>
+      <!-- **** END CODE **** -->
     </div>
   </template>
 
@@ -44,14 +73,17 @@
 
       ready() {
         super.ready();
+        /* Event listeners */
         this.addEventListener('newContactAdded', this.updateContactList);
         this.addEventListener('clearList', this.clearContactList);
       }
 
+      /* Update contact list with data from localStorage */
       updateContactList() {
         this.set('contactListItems', JSON.parse(localStorage.getItem('contactlist')) || [] );
       }
 
+      /* Clear contact list and remove contactlist item from localStorage */
       clearContactList() {
         localStorage.removeItem('contactlist');
         this.set('contactListItems', [] );

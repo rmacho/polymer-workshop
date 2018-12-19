@@ -13,13 +13,7 @@
     </style>
     
     <paper-input id="contactName" label="[[_labelName]]"></paper-input>
-    <paper-input 
-          id="contactPhone" 
-          label="[[_labelPhone]]"
-          auto-validate 
-          pattern="^[0-9]*$"
-          error-message="Numbers only!"
-          ></paper-input>
+
     <paper-button raised on-click="addContact"><iron-icon icon="account-circle"></iron-icon>Add contact</paper-button>
     <paper-button raised on-click="removeList"><iron-icon icon="delete-forever"></iron-icon>Clear contact list</paper-button>
   </template>
@@ -47,17 +41,16 @@
       addContact() {
         let contactList = JSON.parse(localStorage.getItem('contactlist')) || [];
         
-        if(this.$.contactName.value && this.$.contactPhone.value) {
+        if(this.$.contactName.value) {
           contactList.push({
             name: this.$.contactName.value, 
-            phone: this.$.contactPhone.value
+            phone: 'Phone number!'
           });
 
           //Set contactlist in localstorage
           localStorage.setItem('contactlist', JSON.stringify(contactList));
           
           //Fire event when contact is added
-          this.dispatchEvent(new CustomEvent('newContactAdded', {bubble: true, composed : true}));
         }
       }
 

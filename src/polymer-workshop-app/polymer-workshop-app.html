@@ -46,26 +46,21 @@ the dom-module id is the name of your component -->
           contactListItems: Array
         };
       }
-
       ready() {
         super.ready();
         this.addEventListener('newContactAdded', this.updateContactList);
         this.addEventListener('clearList', this.clearContactList);
         this.addEventListener('contactEdit', this.updateContactList);
       }
-
       updateContactList() {
         this.set('contactListItems', JSON.parse(localStorage.getItem('contactlist')) || [] );
         this.$.showContactList.opened=false;
       }
-
       clearContactList() {
         localStorage.removeItem('contactlist');
         this.set('contactListItems', [] );
       }
-
     }
-
     customElements.define(PolymerWorkshopApp.is, PolymerWorkshopApp);
   </script>
 </dom-module>

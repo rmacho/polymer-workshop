@@ -1,7 +1,14 @@
-<!-- ASSIGNMENT 2 -->
-
-
-<!-- add imports here -->
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../../bower_components/neon-animation/neon-animatable.html"> 
+<link rel="import" href="edit-contact.html">
 
 <dom-module id="show-contact-list">
   <template>
@@ -9,8 +16,28 @@
       :host {
         display: block;
       }
+      h2 {
+          margin: 20px 15px;
+      }
     </style>
-    <!-- HTML code -->
+    <template is="dom-if" if='[[list]]'>
+        <h2>List of contacts</h2>
+    </template>
+    <iron-list items="[[list]]" as="listItem">
+        <template>
+            <paper-item>
+                <paper-item-body two-line>
+                    <div>[[listItem.name]]</div>
+                    <div secondary><iron-icon icon="settings-phone"></iron-icon> [[listItem.phone]]</div>
+                </paper-item-body>
+                <paper-button noink on-click="_showDialog">Edit</paper-button>
+            </paper-item>
+        </template>
+    </iron-list>
+    <paper-dialog id="editDialog" opened="[[opened]]">
+            <edit-contact contact-object="[[_contactObj]]"></edit-contact>
+            <paper-button noink on-click="_closeDialog"> Close </paper-button>
+        </paper-dialog>
   </template>
 
   <script>
@@ -22,10 +49,26 @@
       static get is() { return 'show-contact-list'; }
       static get properties() {
         return {
+          list: Array,
+          _showChangeBlock: {
+              type: Boolean,
+              value: false
+          },
+          opened:{
+              type: Boolean,
+              value: false
+          },
+          _contactObj: Object
         };
       }
+      _showDialog(e) {
+          this.set('_contactObj', e.model.listItem);
+          this.set('opened', true);
+      }
+      _closeDialog() {
+          this.set('opened', false);
+      }
     }
-
     customElements.define(ShowContactList.is, ShowContactList);
   </script>
 </dom-module>

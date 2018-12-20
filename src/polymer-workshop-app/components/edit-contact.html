@@ -12,13 +12,15 @@
       }
     </style>
     
-    <contact-inputs
-        id="editContactInputs"
-        label-name="[[_labelName]]"
-        label-phone= "[[_labelPhone]]"
-        prefilled-name="[[contactObject.name]]"
-        prefilled-phone="[[contactObject.phone]]" >
-    </contact-inputs>
+    <paper-input id="contactName" label="[[_labelName]]" value="[[contactObject.name]]"></paper-input>
+    <paper-input
+        id="contactPhone" 
+        label="[[_labelPhone]]"
+        value="[[contactObject.phone]]"
+        auto-validate 
+        pattern="^[0-9]*$"
+        error-message="Numbers only!">
+    </paper-input>
 
     <paper-button raised on-click="editContact"><iron-icon icon="account-circle"></iron-icon>Update contact</paper-button>
 
@@ -54,8 +56,8 @@
 
         for(let contactObj of contactList) {
             if(contactObj.name === this.contactObject.name) {
-                contactObj.name = editContactInputsObject.$.contactName.value,
-                contactObj.phone = editContactInputsObject.$.contactPhone.value
+                contactObj.name = this.$.contactName.value,
+                contactObj.phone = this.$.contactPhone.value
             }
         }
 

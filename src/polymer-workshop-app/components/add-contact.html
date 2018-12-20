@@ -12,11 +12,15 @@
       }
     </style>
 
-    <contact-inputs
-        id="contactInputs"
-        label-name="[[_labelName]]"
-        label-phone= "[[_labelPhone]]" >
-    </contact-inputs>
+    <paper-input id="contactName" label="[[_labelName]]" value="[[prefilledName]]"></paper-input>
+    <paper-input
+        id="contactPhone" 
+        label="[[_labelPhone]]"
+        value="[[prefilledPhone]]"
+        auto-validate 
+        pattern="^[0-9]*$"
+        error-message="Numbers only!">
+    </paper-input>
     
     <paper-button raised on-click="addContact"><iron-icon icon="account-circle"></iron-icon>Add contact</paper-button>
     <paper-button raised on-click="removeList"><iron-icon icon="delete-forever"></iron-icon>Clear contact list</paper-button>
@@ -46,10 +50,10 @@
         let contactList = JSON.parse(localStorage.getItem('contactlist')) || [];
         let contactInputsObject = this.$.contactInputs;
         
-        if(contactInputsObject.$.contactName.value && contactInputsObject.$.contactPhone.value) {
+        if(this.$.contactName.value && this.$.contactPhone.value) {
           contactList.push({
-            name: contactInputsObject.$.contactName.value, 
-            phone: contactInputsObject.$.contactPhone.value
+            name: this.$.contactName.value, 
+            phone: this.$.contactPhone.value
           });
 
           //Set contactlist in localstorage

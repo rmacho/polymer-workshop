@@ -1,11 +1,3 @@
-/* Use link import to include your components */
-/* This is the start of you component, 
-the dom-module id is the name of your component */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 import './components/add-contact.js';
